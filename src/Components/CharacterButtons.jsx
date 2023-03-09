@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const CharacterButtons = (props) => {
   const dispatch = useDispatch();
@@ -7,16 +7,23 @@ const CharacterButtons = (props) => {
   const { character, quote } = props;
   const key = character + quote;
 
-  //   const [isEditable, setEditable] = useState(false);
+  const [isEditable, setEditable] = useState(false);
+  const [editQuoteInput, setEditQuoteInput] = useState();
 
-  //   const setEdit = () => {
-  //     setEditable(!isEditable);
-  //   };
+  const saveQuoteEdit = () => {
+    dispatch({
+      type: "EDITQUOTE",
+      payload: {
+        key: key,
+        newQuote: editQuoteInput,
+      },
+    });
+    setEditable(!isEditable);
+  };
 
-  //   const saveQuoteEdit = (e) => {
-  //     setEdit();
-  //     console.log(e.target.value);
-  //   };
+  const editQuoteInputChange = (e) => {
+    setEditQuoteInput(e.target.value);
+  };
 
   return (
     <div className="characterButtons">
@@ -35,22 +42,29 @@ const CharacterButtons = (props) => {
         Delete
       </button>
 
-      {/* {isEditable ? (
+      {isEditable ? (
         <div className="editableContainer">
           <button onClick={saveQuoteEdit} className="button" type="button">
             Save
           </button>
           <input
+            id="editQuoteInput"
             type="text"
             placeholder="Edit"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={editQuoteInputChange}
           ></input>
         </div>
       ) : (
-        <button onClick={setEdit} className="button" type="button">
+        <button
+          onClick={() => {
+            setEditable(!isEditable);
+          }}
+          className="button"
+          type="button"
+        >
           Edit Quote
         </button>
-      )} */}
+      )}
     </div>
   );
 };

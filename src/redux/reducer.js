@@ -38,7 +38,6 @@ export function reducer(state = initialState, action) {
 
       return { ...state, simpsons: _simpsons };
     }
-
     case "TOGGLEQUOTE": {
       const _simpsons = [...state.simpsons];
       const _readQuotes = state.readQuotes;
@@ -71,6 +70,19 @@ export function reducer(state = initialState, action) {
 
       if (_simpsons[indexToDelete].quoteRead === "read") {
         return { ...state, simpsons: _simpsons, readQuotes: _readQuotes - 1 };
+      }
+
+      return { ...state, simpsons: _simpsons };
+    }
+
+    case "EDITQUOTE": {
+      const _simpsons = [...state.simpsons];
+
+      if (action.payload.newQuote) {
+        const indexToEdit = _simpsons.findIndex(
+          (element) => element.character + element.quote === action.payload.key
+        );
+        _simpsons[indexToEdit].quote = action.payload.newQuote;
       }
 
       return { ...state, simpsons: _simpsons };

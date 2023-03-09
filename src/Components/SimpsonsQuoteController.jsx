@@ -45,7 +45,7 @@ const SimpsonsQuoteController = () => {
         (element) =>
           element.visible && (
             <div
-              key={element.quote}
+              key={element.quote + element.character}
               className={`quoteContainer ${element.quoteRead}`}
             >
               <Character
