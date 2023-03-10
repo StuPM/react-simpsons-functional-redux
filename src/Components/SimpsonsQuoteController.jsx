@@ -5,6 +5,7 @@ import Character from "./Character";
 import NavigationButtons from "./NavigationButtons";
 
 import "./styles/SimpsonsQuoteController.scss";
+import { SETSIMPSONSDATA } from "../redux/types";
 
 const SimpsonsQuoteController = () => {
   const simpsons = useSelector((state) => state.simpsons);
@@ -26,7 +27,7 @@ const SimpsonsQuoteController = () => {
       element.visible = true;
     }
 
-    dispatch({ type: "SETSIMPSONSDATA", payload: simpsonsAPIData.data });
+    dispatch({ type: SETSIMPSONSDATA, payload: simpsonsAPIData.data });
   }
 
   if (!simpsons) {

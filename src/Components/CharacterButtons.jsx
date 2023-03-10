@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { EDITQUOTE, TOGGLEQUOTE, DELETEQUOTE } from "../redux/types";
 
 const CharacterButtons = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const CharacterButtons = (props) => {
 
   const saveQuoteEdit = () => {
     dispatch({
-      type: "EDITQUOTE",
+      type: EDITQUOTE,
       payload: {
         key: key,
         newQuote: editQuoteInput,
@@ -30,14 +31,14 @@ const CharacterButtons = (props) => {
       <button
         className="read button"
         type="button"
-        onClick={() => dispatch({ type: "TOGGLEQUOTE", payload: key })}
+        onClick={() => dispatch({ type: TOGGLEQUOTE, payload: key })}
       >
         Toggle read
       </button>
       <button
         className="delete button"
         type="button"
-        onClick={() => dispatch({ type: "DELETEQUOTE", payload: key })}
+        onClick={() => dispatch({ type: DELETEQUOTE, payload: key })}
       >
         Delete
       </button>

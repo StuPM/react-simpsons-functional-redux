@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { SEARCHDATA, SORTDATA } from "../redux/types";
 
 const NavigationButtons = (props) => {
   const readQuotes = useSelector((state) => state.readQuotes);
@@ -9,7 +10,7 @@ const NavigationButtons = (props) => {
 
   const searchQuotesByCharacter = () => {
     dispatch({
-      type: "SEARCHDATA",
+      type: SEARCHDATA,
       payload: document.getElementById("searchInput").value.toLowerCase(),
     });
   };
@@ -20,7 +21,7 @@ const NavigationButtons = (props) => {
         <button
           type="button"
           onClick={() => {
-            dispatch({ type: "SORTDATA" });
+            dispatch({ type: SORTDATA });
           }}
         >
           Sort by name

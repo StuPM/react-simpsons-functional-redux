@@ -1,13 +1,21 @@
 import { initialState } from "./initialState";
+import {
+  SETSIMPSONSDATA,
+  SORTDATA,
+  SEARCHDATA,
+  TOGGLEQUOTE,
+  DELETEQUOTE,
+  EDITQUOTE,
+} from "./types";
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
-    case "SETSIMPSONSDATA": {
+    case SETSIMPSONSDATA: {
       const _state = { ...state };
       _state.simpsons = action.payload;
       return _state;
     }
-    case "SORTDATA": {
+    case SORTDATA: {
       const _simpsons = [...state.simpsons];
       _simpsons.sort((a, b) => {
         const first = a.character;
@@ -24,7 +32,7 @@ export function reducer(state = initialState, action) {
 
       return { ...state, simpsons: _simpsons };
     }
-    case "SEARCHDATA": {
+    case SEARCHDATA: {
       const _simpsons = [...state.simpsons];
       const searchTerm = action.payload;
 
@@ -38,7 +46,7 @@ export function reducer(state = initialState, action) {
 
       return { ...state, simpsons: _simpsons };
     }
-    case "TOGGLEQUOTE": {
+    case TOGGLEQUOTE: {
       const _simpsons = [...state.simpsons];
       const _readQuotes = state.readQuotes;
 
@@ -57,25 +65,24 @@ export function reducer(state = initialState, action) {
         return { ...state, simpsons: _simpsons, readQuotes: _readQuotes - 1 };
       }
     }
-
-    case "DELETEQUOTE": {
+    case DELETEQUOTE: {
       const _simpsons = [...state.simpsons];
-      const _readQuotes = state.readQuotes;
 
       const indexToDelete = _simpsons.findIndex(
         (element) => element.character + element.quote === action.payload
       );
 
+      const _readQuotes =
+        _simpsons[indexToDelete].quoteRead === "read"
+          ? state.readQuotes - 1
+          : state.readQuotes;
+
       _simpsons.splice(indexToDelete, 1);
 
-      if (_simpsons[indexToDelete].quoteRead === "read") {
-        return { ...state, simpsons: _simpsons, readQuotes: _readQuotes - 1 };
-      }
-
-      return { ...state, simpsons: _simpsons };
+      return { ...state, simpsons: _simpsons, readQuotes: _readQuotes };
     }
 
-    case "EDITQUOTE": {
+    case EDITQUOTE: {
       const _simpsons = [...state.simpsons];
 
       if (action.payload.newQuote) {
